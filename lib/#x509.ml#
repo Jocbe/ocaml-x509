@@ -189,9 +189,9 @@ module Authenticator = struct
       end
       `Ok c*)
 
-  (*let dummy out = 
+  let dummy out authenticator =
     fun ?host:host (c, cs) ->
       out := Some (host, (c, cs));
-      `Ok c*)
+      authenticate
 end
 

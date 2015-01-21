@@ -22,6 +22,7 @@ depends: [
   "sexplib"
   "asn1-combinators" {>= "0.1.1"}
   "nocrypto" {>= "0.2.0"}
+  "lwt"
 ]
 tags: [ "org:mirage" ]
 available: [ ocaml-version >= "4.01.0" ]

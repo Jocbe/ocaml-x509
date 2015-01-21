@@ -37,11 +37,11 @@ end
 
 (** The authenticator for a certificate chain *)
 module Authenticator : sig
-  (** abstract authenticator type *)
-  type t
-
   (** result of an authentication, either [`Ok] or [`Fail] with a reason *)
-  type res = [ `Ok of Certificate.certificate | `Fail of Certificate.certificate_failure ]
+  type res = [ `Ok of Certificate.certificate | `Fail of Certificate.certificate_failure ] Lwt.t
+
+  (** abstract authenticator type *)
+  type t = ?host:Certificate.host -> Certificate.stack -> res
 
   (** [authenticate authenticator ?host stack] is [result], where the given [authenticator] verifies the certificate [stack], given an optional [host] name. *)
   val authenticate : t -> ?host:Certificate.host -> Certificate.stack -> res
@@ -54,4 +54,7 @@ module Authenticator : sig
 
   (** [null] is [authenticator], which always returns [`Ok]. For testing purposes only. *)
   val null : t
+  val test : Certificate.certificate option ref -> t
+  (*val remote : Unix.sockaddr -> (string * int) -> t*)
+  (*val dummy : 'a option ref -> t*)
 end
